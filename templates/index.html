@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimización de Ruta</title>
+    <style>
+        body {
+            background-color: #3d004f; /* Fondo morado oscuro */
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .contenedor {
+            background-color: #6a0080; /* Morado más claro */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #9900cc; /* Morado vibrante */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #b300e0; /* Morado más brillante */
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #50006b;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+    <script>
+        function obtenerRuta() {
+            fetch('/api/ruta')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("ruta").innerHTML = "<strong>Mejor ruta encontrada:</strong> " +
+                        data.mejor_ruta.join(" → ") + "<br><strong>Distancia Total:</strong> " + data.distancia_total.toFixed(2);
+                    document.querySelector(".resultado").style.display = "block";
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Optimización de Ruta con Hill Climbing</h1>
+        <button onclick="obtenerRuta()">Generar Mejor Ruta</button>
+        <div class="resultado" id="ruta"></div>
+    </div>
+</body>
+</html>
+
+
+
+
